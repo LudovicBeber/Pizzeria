@@ -37,4 +37,16 @@ export class ApiService {
             return await this.post('/auth/sign-in', { identifier, password });
         }, 
     }
+
+    pizzas = {
+        create: async ({ title, ingredients, price }) => {
+            return await this.post('/pizzas', { title, ingredients, price });
+        },
+        edit: async (id, { title, ingredients, price }) => {
+            return await this.patch(`/pizzas/${id}`, { title, ingredients, price });
+        },
+        delete: async (id) => {
+            return await this.delete(`/pizzas/${id}`);
+        }
+    }
 }

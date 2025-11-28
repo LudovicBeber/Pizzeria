@@ -22,4 +22,4 @@ const pizzaSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Product', pizzaSchema)
+module.exports = mongoose.model('Pizza', pizzaSchema)

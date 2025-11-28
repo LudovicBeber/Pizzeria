@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const createPizzaSchema = Joi.object({
     title: Joi.string().required(),
-    ingredients: Joi.string().optional(),
+    ingredients: Joi.string().required(),
     price: Joi.string().required()
 });
 
