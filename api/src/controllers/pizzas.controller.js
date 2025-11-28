@@ -1,4 +1,4 @@
-const pizzaService = require("../services/pizza.service");
+const pizzaService = require("../services/pizzas.service");
 
 exports.Create = async (req, res) => {
   const data = req.body;

@@ -6,7 +6,7 @@ const createPizzaSchema = Joi.object({
     price: Joi.string().required()
 });
 
-const updatePizzaSchema = createProductSchema;
+const updatePizzaSchema = createPizzaSchema;
 
 module.exports = {
     createPizzaSchema,

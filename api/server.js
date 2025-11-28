@@ -17,9 +17,9 @@ app.get('/', (_, res) => {
 
 /* Routes */
 // Auth routes
-// app.use('/auth', require("./src/routes/auth.routes"));
-// Products routes
-// app.use('/products', require("./src/routes/products.routes"));
+app.use('/auth', require("./src/routes/auth.routes"));
+// Pizzas routes
+app.use('/pizzas', require("./src/routes/pizzas.routes"));
 
 connectDB();
 
