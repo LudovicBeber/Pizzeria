@@ -1,14 +1,14 @@
 const Joi = require("joi");
 
-const createProductSchema = Joi.object({
+const createPizzaSchema = Joi.object({
     title: Joi.string().required(),
     ingredients: Joi.string().optional(),
     price: Joi.string().required()
 });
 
-const updateProductSchema = createProductSchema;
+const updatePizzaSchema = createProductSchema;
 
 module.exports = {
-    createProductSchema,
-    updateProductSchema
+    createPizzaSchema,
+    updatePizzaSchema
 }
