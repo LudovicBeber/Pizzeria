@@ -26,7 +26,7 @@ const Button = ({
       type={type}
       disabled={disabled}
       onClick={handleClick}
-      className={`px-4 py-2 font-bold bg-blue-600 rounded-md ${className}`}
+      className={`px-4 py-2 font-bold text-white bg-blue-400 rounded-md hover:bg-blue-600 hover:cursor-pointer ${className}`}
     >
       {children}
     </button>

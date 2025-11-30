@@ -9,7 +9,7 @@ import IngredientList from './pages/ingredient/IngredientList';
 import IngredientCreate from './pages/ingredient/IngredientCreate';
 import IngredientEdit from './pages/ingredient/IngredientEdit';
 import SignUp from './pages/auth/SignUp';
-import SignIn from './pages/auth/SignIn';
+import SignIn from './pages/Auth/SignIn';
 import Button from './components/Button';
 import { useAppStore } from './stores/app.store';
 import { apiService } from './main';
@@ -17,13 +17,28 @@ import { apiService } from './main';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   console.log(localStorage.getItem('accessToken'));
-  const { accessToken } = useAppStore();
+  const { accessToken, setAccessToken } = useAppStore();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    apiService.updateAccessToken("");
+    setAccessToken("");
+  };
 
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken?.length) {
+      // Vérifier la validité du token via un appel API
       apiService.updateAccessToken(accessToken);
-      // Vérif côté back validité token
-      
+      setIsLoggedIn(true);
+
+      /**
+       * Si jamais le token est invalide ou a expiré alors :
+       * setAccessToken("");
+       * localStorage.removeItem("accessToken");
+       * apiService.updateAccessToken("");
+       */
+    } else {
+      setIsLoggedIn(false);
     }
   }, [accessToken]);
 
@@ -40,13 +55,13 @@ function App() {
             <NavLink to="/ingredients" className='text-4xl font-medium hover:text-blue-600'>Ingrédients</NavLink>
           </nav>
           {!isLoggedIn ? (
-            <Button className={"mb-8"} type={"button"} link={"/auth/sign-in"}>
+            <Button className={""} type={"button"} link={"/auth/sign-in"}>
               Connexion
             </Button>
           ) : (
             <div className="flex gap-2 items-center">
               <p className="text-white">Vous êtes connecté.</p>
-              <Button className={"mb-8"} type={"button"} link={null} onClick={() => handleLogout()}>
+              <Button className={""} type={"button"} link={null} onClick={() => handleLogout()}>
                 Se déconnecter
               </Button>
             </div>
