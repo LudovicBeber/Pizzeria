@@ -27,7 +27,7 @@ exports.Create = async ({ title, ingredients, price }) => {
       statusCode: 201,
     };
   } catch (error) {
-    console.error("SERVICE::PRODUCTS::Create - ", error);
+    console.error("SERVICE::PIZZAS::Create - ", error);
     return {
       error: true,
       message:
@@ -50,7 +50,7 @@ exports.GetAll = async () => {
       statusCode: 200,
     };
   } catch (error) {
-    console.error("SERVICE::PRODUCTS::GetAll - ", error);
+    console.error("SERVICE::PIZZAS::GetAll - ", error);
     return {
       error: true,
       message:
@@ -81,7 +81,7 @@ exports.GetOne = async (id) => {
       statusCode: 200,
     };
   } catch (error) {
-    console.error("SERVICE::PRODUCTS::GetOne - ", error);
+    console.error("SERVICE::PIZZAS::GetOne - ", error);
     return {
       error: true,
       message:
@@ -141,7 +141,7 @@ exports.Update = async (id, { title, ingredients, price }) => {
       statusCode: 200,
     };
   } catch (error) {
-    console.error("SERVICE::PRODUCTS::Update - ", error);
+    console.error("SERVICE::PIZZAS::Update - ", error);
     return {
       error: true,
       message:
@@ -172,7 +172,7 @@ exports.Delete = async (id) => {
       statusCode: 200,
     };
   } catch (error) {
-    console.error("SERVICE::PRODUCTS::Delete - ", error);
+    console.error("SERVICE::PIZZAS::Delete - ", error);
     return {
       error: true,
       message:

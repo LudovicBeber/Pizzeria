@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { BrowserRouter, Routes, Route, Navigate, NavLink } from "react-router-dom";
@@ -8,9 +8,24 @@ import PizzaList from './pages/pizza/PizzaList';
 import IngredientList from './pages/ingredient/IngredientList';
 import IngredientCreate from './pages/ingredient/IngredientCreate';
 import IngredientEdit from './pages/ingredient/IngredientEdit';
+import SignUp from './pages/auth/SignUp';
+import SignIn from './pages/auth/SignIn';
+import Button from './components/Button';
+import { useAppStore } from './stores/app.store';
+import { apiService } from './main';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(localStorage.getItem('accessToken'));
+  const { accessToken } = useAppStore();
+
+  useEffect(() => {
+    if (accessToken) {
+      apiService.updateAccessToken(accessToken);
+      // Vérif côté back validité token
+      
+    }
+  }, [accessToken]);
 
   return (
     <BrowserRouter>
@@ -24,17 +39,35 @@ function App() {
             <div className='bg-gray-500 w-[2px]' />
             <NavLink to="/ingredients" className='text-4xl font-medium hover:text-blue-600'>Ingrédients</NavLink>
           </nav>
+          {!isLoggedIn ? (
+            <Button className={"mb-8"} type={"button"} link={"/auth/sign-in"}>
+              Connexion
+            </Button>
+          ) : (
+            <div className="flex gap-2 items-center">
+              <p className="text-white">Vous êtes connecté.</p>
+              <Button className={"mb-8"} type={"button"} link={null} onClick={() => handleLogout()}>
+                Se déconnecter
+              </Button>
+            </div>
+          )}
         </header>
         <main className='flex-1 bg-gray-200'>
           <Routes>
+            {!isLoggedIn && (
+              <Route path="/auth">
+                <Route path="sign-up" element={<SignUp />} />
+                <Route path="sign-in" element={<SignIn />} />
+              </Route>
+            )}
             <Route path='/pizzas'>
-              <Route path='' element={<PizzaList />} />
+              <Route index element={<PizzaList />} />
               <Route path='create' element={<PizzaCreate />} />
               <Route path='edit/:id' element={<PizzaEdit />} />
               <Route path='*' element={<Navigate to={'/pizzas'} />} />
             </Route>
             <Route path='/ingredients'>
-              <Route path='' element={<IngredientList />} />
+              <Route index element={<IngredientList />} />
               <Route path='create' element={<IngredientCreate />} />
               <Route path='edit/:id' element={<IngredientEdit />} />
               <Route path='*' element={<Navigate to={'/ingredients'} />} />

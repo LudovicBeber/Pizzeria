@@ -60,8 +60,6 @@ const PizzaCreate = () => {
           return;
         }
 
-        localStorage.setItem("accessToken", res.data.accessToken);
-        setAccessToken(res.data.accessToken);
         navigate("/pizzas", { replace: true });
       })
       .catch((err) => {
