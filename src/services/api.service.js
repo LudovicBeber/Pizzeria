@@ -25,7 +25,18 @@ export class ApiService {
 
         return response.json();
     }
-    get = async () => {}
+    get = async (endpoint) => {
+        const headers = {
+            "Content-Type": "application/json"
+        };
+
+        const response = await fetch(`${this.baseUrl}${endpoint}`, {
+            headers,
+            method: 'GET',
+        });
+
+        return response.json();
+    }
     patch = async () => {}
     delete = async () => {}
 
@@ -39,6 +50,9 @@ export class ApiService {
     }
 
     pizzas = {
+        getAll: async () => {
+            return await this.get('/pizzas');
+        },
         create: async ({ title, ingredients, price }) => {
             return await this.post('/pizzas', { title, ingredients, price });
         },
